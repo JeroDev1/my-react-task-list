@@ -1,11 +1,17 @@
-import { Tarea } from "./Tarea";
+import { Task } from "./Task";
 
 export const TaskList = (props) =>{
 
     const {pendientes} = props;
-    return <form>
+    return <ul>
         {
-            pendientes.map(TaskList => <Tarea tarea={TaskList.tarea} />)
+            pendientes.map(tarea => (
+            <Task
+                key={tarea.id}
+                id={tarea.id}
+                descripcion={tarea.descripcion} 
+                completado={tarea.completado}
+            />))
         }
-    </form>
+    </ul>
 }
