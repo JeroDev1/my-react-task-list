@@ -5,6 +5,7 @@ export const Task = (props) => {
 
   const [modoEdicion, setModoEdicion] = useState(false);
   const [nuevaDescripcion, setNuevaDescripcion] = useState(descripcion);
+  const [estaCompletado, setEstaCompletado] = useState(completado); // agregar un estado para el control de completado
 
   const handleEliminar = () => {
     onEliminar(id);
@@ -17,15 +18,22 @@ export const Task = (props) => {
     } else {
       setModoEdicion(true);
     }
-  }; //se agrega un estado de modo edicion para validar que se esta editando
+  };
 
   const handleChange = (evento) => {
     setNuevaDescripcion(evento.target.value);
   };
 
+  const handleCompletado = () => {
+    setEstaCompletado(!estaCompletado); // cambiar el estado de completado al valor opuesto
+    if (!estaCompletado) { // si la tarea se ha completado, llamar a la función onEliminar
+      onEliminar(id);
+    }
+  };
+
   return (
     <li>
-      <input id={id} type="checkbox" defaultChecked={completado} />
+      <input id={id} type="checkbox" checked={estaCompletado} onChange={handleCompletado} /> {/* establecer el valor del checkbox al estado de completado */}
       {modoEdicion ? (
         <input
           type="text"
