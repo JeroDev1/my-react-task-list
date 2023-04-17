@@ -1,7 +1,8 @@
 import { Task } from "./Task";
+import "./TaskList.css"
 
 export const TaskList = (props) => {
-    const { pendientes, onEliminar, onEditar, } = props;
+    const { pendientes, onEliminar, onEditar } = props;
   
     const handleEliminar = (id) => {
         onEliminar(id);

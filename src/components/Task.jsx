@@ -1,9 +1,10 @@
 import { useState } from "react";
+import "./Task.css";
 
 export const Task = (props) => {
   const { id, descripcion, completado, onEliminar, onEditar } = props;
 
-  const [modoEdicion, setModoEdicion] = useState(false);
+  const [modoEdicion, setModoEdicion] = useState(false); // agregar un estado para la edicion
   const [nuevaDescripcion, setNuevaDescripcion] = useState(descripcion);
   const [estaCompletado, setEstaCompletado] = useState(completado); // agregar un estado para el control de completado
 

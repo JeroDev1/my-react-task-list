@@ -1,20 +1,14 @@
-body {
+.App {
     display: flex;
-    justify-content: center;
-    border: black solid;
-    margin: auto;
-    margin-top: 200px;
+    flex-direction: column;
+    background: linear-gradient(rgb(233, 217, 219), rgb(50, 223, 192));
     max-width: 350px;
-    height: 400px;
-}
-a {
-    background-color: aqua;
-    display: flex;
-    justify-content: center;
-    text-decoration: none;
-    
-}
-input{
-    display: inline-block;
-    max-width: 100%;
+    align-items: center;
+    margin: auto;
+    margin-top: 150px;
+    border: none;
+    min-height: 600px;
+    border-radius: 5px;
+    border: black solid;
+    position:relative;
 }
