@@ -15,9 +15,14 @@ function App() {
 
   const agregar = (evento) => {
     evento.preventDefault()
-    if (nuevaTarea.trim() !== "") { // Agrega una validación para evitar tareas vacías
-      setListaTareas([...listaTareas, {id: new Date().getTime(), descripcion:nuevaTarea, completado:false}])
-      setNuevaTarea("");//dejar en limpio
+    if (nuevaTarea.trim() !== "") {
+      const nuevaTareaConId = {
+        id: new Date().getTime(),
+        descripcion: nuevaTarea,
+        completado: false
+      };
+      setListaTareas([...listaTareas, nuevaTareaConId])
+      setNuevaTarea("");
     }
   }
 
@@ -25,15 +30,31 @@ function App() {
     setNuevaTarea(evento.target.value)
   }
 
-  return (<div className="App">
-    <Header />
-    <form>
+  const eliminarTarea = (id) => {
+    const nuevasTareas = listaTareas.filter((tarea) => tarea.id !== id);
+    setListaTareas(nuevasTareas);
+  }
+
+  const editarTarea = (id, nuevaDescripcion) => {
+    const nuevasTareas = listaTareas.map((tarea) => {
+      if (tarea.id === id) {
+        tarea.descripcion = nuevaDescripcion;
+      }
+      return tarea;
+    });
+    setListaTareas(nuevasTareas);
+  }
+
+  return (
+    <div className="App">
+      <Header />
+      <form>
         <input type="text" value={nuevaTarea} onChange={handleChange} placeholder="Ingrese tarea"/>
         <button type='submit' onClick={agregar}>Agregar Tarea</button>
-    </form>
-    <TaskList pendientes={listaTareas}/>
-  </div>)
-  
+      </form>
+      <TaskList pendientes={listaTareas} onEliminar={eliminarTarea} onEditar={editarTarea} />
+    </div>
+  )  
 }
 
 export default App

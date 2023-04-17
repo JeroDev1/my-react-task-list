@@ -1,17 +1,28 @@
 import { Task } from "./Task";
 
-export const TaskList = (props) =>{
+export const TaskList = (props) => {
+    const { pendientes, onEliminar, onEditar, } = props;
+  
+    const handleEliminar = (id) => {
+        onEliminar(id);
+    }
+    
+    const handleEditar = (id, nuevaDescripcion) => {
+        onEditar(id, nuevaDescripcion);
+    } // se crea esta funcion que verifica la edicion de la tarea
 
-    const {pendientes} = props;
-    return <ul>
-        {
-            pendientes.map(tarea => (
+    return (
+        <ul>
+            {pendientes.map((tarea) => (
             <Task
                 key={tarea.id}
                 id={tarea.id}
-                descripcion={tarea.descripcion} 
+                descripcion={tarea.descripcion}
                 completado={tarea.completado}
-            />))
-        }
-    </ul>
-}
+                onEliminar={handleEliminar}
+                onEditar={handleEditar}
+            />
+            ))}
+        </ul>
+    );
+};
