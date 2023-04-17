@@ -1,7 +1,14 @@
-export const Task = ()=>{
+export const Task = (props) => {
 
-    return <div>
-        <input type="text" placeholder="Ingrese tarea"/>
-        <button type="send">Agregar Tarea</button>
-    </div>
-}
+    const { id, descripcion, completado } = props;
+
+    return (
+        <li>
+            <input id={id} type="checkbox" />
+            <label htmlFor={id} >
+                {descripcion}
+            </label>
+            <br />
+        </li>
+    );
+};
