@@ -1,60 +1,76 @@
-import {Header} from './components/Header'
-import { TaskList } from './components/TaskList'
-import { useState } from 'react'
+import { Header } from './components/Header';
+import { TaskList } from './components/TaskList';
+import { useState, useEffect } from 'react';
 
 const tareasPendiente = [
-  { id:1, descripcion:"Recoger carro", completado:false},
-  { id:2, descripcion:"Entregar trabajo", completado:false},
-  { id:3, descripcion:"Comprar leche", completado:false},
-]
+  { id: 1, descripcion: 'Recoger carro', completado: false },
+  { id: 2, descripcion: 'Entregar trabajo', completado: false },
+  { id: 3, descripcion: 'Comprar leche', completado: false },
+];
 
 function App() {
+  const [listaTareas, setListaTareas] = useState(
+    JSON.parse(localStorage.getItem('listaTareas')) || tareasPendiente
+  );
+  const [nuevaTarea, setNuevaTarea] = useState('');
 
-  const [listaTareas, setListaTareas] = useState(tareasPendiente)
-  const [nuevaTarea, setNuevaTarea] = useState("")
+  useEffect(() => {
+    localStorage.setItem('listaTareas', JSON.stringify(listaTareas));
+  }, [listaTareas]);
 
-  const agregar = (evento) => {
-    evento.preventDefault()
-    if (nuevaTarea.trim() !== "") {
+  const agregar = evento => {
+    evento.preventDefault();
+    if (nuevaTarea.trim() !== '') {
       const nuevaTareaConId = {
         id: new Date().getTime(),
         descripcion: nuevaTarea,
-        completado: false
+        completado: false,
       };
-      setListaTareas([...listaTareas, nuevaTareaConId])
-      setNuevaTarea("");
+      setListaTareas([...listaTareas, nuevaTareaConId]);
+      setNuevaTarea('');
     }
-  }
+  };
 
-  const handleChange = (evento) => {
-    setNuevaTarea(evento.target.value)
-  }
+  const handleChange = evento => {
+    setNuevaTarea(evento.target.value);
+  };
 
-  const eliminarTarea = (id) => {
-    const nuevasTareas = listaTareas.filter((tarea) => tarea.id !== id);
+  const eliminarTarea = id => {
+    const nuevasTareas = listaTareas.filter(tarea => tarea.id !== id);
     setListaTareas(nuevasTareas);
-  }
+  };
 
   const editarTarea = (id, nuevaDescripcion) => {
-    const nuevasTareas = listaTareas.map((tarea) => {
+    const nuevasTareas = listaTareas.map(tarea => {
       if (tarea.id === id) {
         tarea.descripcion = nuevaDescripcion;
       }
       return tarea;
     });
     setListaTareas(nuevasTareas);
-  }
+  };
 
   return (
-    <div className="App">
+    <div className='App'>
       <Header />
       <form>
-        <input type="text" value={nuevaTarea} onChange={handleChange} placeholder="Ingrese tarea"/>
-        <button type='submit' onClick={agregar}>Agregar Tarea</button>
+        <input
+          type='text'
+          value={nuevaTarea}
+          onChange={handleChange}
+          placeholder='Ingrese tarea'
+        />
+        <button type='submit' onClick={agregar}>
+          Agregar Tarea
+        </button>
       </form>
-      <TaskList pendientes={listaTareas} onEliminar={eliminarTarea} onEditar={editarTarea} />
+      <TaskList
+        pendientes={listaTareas}
+        onEliminar={eliminarTarea}
+        onEditar={editarTarea}
+      />
     </div>
-  )  
+  );
 }
 
-export default App
+export default App;
