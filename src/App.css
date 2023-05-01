@@ -1,14 +1,91 @@
+body {
+    margin: none;
+    background-image: url(https://franklincovey.com.uy/wp-content/uploads/2023/01/Como-evitar-una-to-do-list-interminable.png);
+    background-repeat: no-repeat;
+    background-position: 1 rem;
+}
+
 .App {
     display: flex;
     flex-direction: column;
-    background: linear-gradient(rgb(233, 217, 219), rgb(50, 223, 192));
-    max-width: 350px;
+    background: linear-gradient(rgb(79, 241, 130), rgb(113, 224, 232));
+    max-width: 400px;
     align-items: center;
     margin: auto;
     margin-top: 150px;
     border: none;
     min-height: 600px;
     border-radius: 5px;
-    border: black solid;
+    border: white solid ;
+    box-shadow: 0px 0px 25px #222;
+    backdrop-filter: blur(20px);
     position:relative;
+}
+
+.F1 {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    background: deepskyblue;
+    box-shadow: 0px 0px 10px #222;
+    backdrop-filter: blur(10px);
+    padding: 13px;
+    border-radius: 10px;
+    width: 85%;
+}
+
+.primerimput {
+    outline: none;
+    line-height: 1rem;
+    font-size: 1rem;
+    color: rgb(255 255 255 );
+    padding: .5rem;
+    background-color: rgb(255 255 255 / 0.05);
+    border: 1px solid rgba(253, 253, 253, 0.363);
+    border-radius: 0.5rem;
+    max-width: 360px;
+}
+
+.primerimput::placeholder {
+    color:rgb(255 255 255 )
+}
+
+
+.primerboton {
+    position: relative;
+    overflow: hidden;
+    height: 3rem;
+    padding: 3px;
+    border-radius: 10px;
+    background: #968ad8;
+    background-size: 400%;
+    color: #fff;
+}
+
+.primerboton:hover::before {
+    transform: scaleX(1);
+}
+
+.primerboton-content {
+    position: relative;
+    z-index: 1;
+}
+
+.primerboton::before {
+    content: 'Tarea agregada';
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 5px;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    width: 100%;
+    height: inherit;
+    border-radius: inherit;
+    background: linear-gradient(
+        82.3deg,
+        rgba(150, 93, 233, 1) 10.8%,
+        rgba(99, 88, 238, 1) 94.3%
+    );
+    transition: all 0.475s;
 }

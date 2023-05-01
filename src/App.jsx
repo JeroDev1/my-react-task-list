@@ -53,14 +53,15 @@ function App() {
   return (
     <div className='App'>
       <Header />
-      <form>
-        <input
+      <form className='F1'>
+        <input className='primerimput' 
           type='text'
+          maxlength="25"
           value={nuevaTarea}
           onChange={handleChange}
           placeholder='Ingrese tarea'
         />
-        <button type='submit' onClick={agregar}>
+        <button className='primerboton' type='submit' onClick={agregar}>
           Agregar Tarea
         </button>
       </form>

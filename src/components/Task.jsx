@@ -34,7 +34,7 @@ export const Task = (props) => {
 
   return (
     <li>
-      <input id={id} type="checkbox" checked={estaCompletado} onChange={handleCompletado} /> {/* establecer el valor del checkbox al estado de completado */}
+      <input className="check1" id={id} type="checkbox" checked={estaCompletado} onChange={handleCompletado} /> {/* establecer el valor del checkbox al estado de completado */}
       {modoEdicion ? (
         <input
           type="text"
@@ -42,11 +42,11 @@ export const Task = (props) => {
           onChange={handleChange}
         />
       ) : (
-        <label htmlFor={id}>{descripcion}</label>
+        <label className="espacioTarea" htmlFor={id}>{descripcion}</label>
       )}
       <br />
-      <button onClick={handleEditar}>{modoEdicion ? "Guardar" : "Editar"}</button>
-      <button onClick={handleEliminar}>Eliminar</button>
+      <button className="buttonEdit" onClick={handleEditar}>{modoEdicion ? "Guardar" : "Editar"}</button>
+      <button className="buttonDelete" onClick={handleEliminar}>Eliminar</button>
     </li>
   );
 };
