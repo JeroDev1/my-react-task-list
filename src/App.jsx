@@ -1,76 +1,23 @@
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Header } from './components/Header';
-import { TaskList } from './components/TaskList';
-import { useState, useEffect } from 'react';
-
-const tareasPendiente = [
-  { id: 1, descripcion: 'Recoger carro', completado: false },
-  { id: 2, descripcion: 'Entregar trabajo', completado: false },
-  { id: 3, descripcion: 'Comprar leche', completado: false },
-];
+import { Home } from './components/Home';
+import { Contact } from './components/Contact';
+import { CompletedTasks } from './components/CompletedTasks';
 
 function App() {
-  const [listaTareas, setListaTareas] = useState(
-    JSON.parse(localStorage.getItem('listaTareas')) || tareasPendiente
-  );
-  const [nuevaTarea, setNuevaTarea] = useState('');
-
-  useEffect(() => {
-    localStorage.setItem('listaTareas', JSON.stringify(listaTareas));
-  }, [listaTareas]);
-
-  const agregar = evento => {
-    evento.preventDefault();
-    if (nuevaTarea.trim() !== '') {
-      const nuevaTareaConId = {
-        id: new Date().getTime(),
-        descripcion: nuevaTarea,
-        completado: false,
-      };
-      setListaTareas([...listaTareas, nuevaTareaConId]);
-      setNuevaTarea('');
-    }
-  };
-
-  const handleChange = evento => {
-    setNuevaTarea(evento.target.value);
-  };
-
-  const eliminarTarea = id => {
-    const nuevasTareas = listaTareas.filter(tarea => tarea.id !== id);
-    setListaTareas(nuevasTareas);
-  };
-
-  const editarTarea = (id, nuevaDescripcion) => {
-    const nuevasTareas = listaTareas.map(tarea => {
-      if (tarea.id === id) {
-        tarea.descripcion = nuevaDescripcion;
-      }
-      return tarea;
-    });
-    setListaTareas(nuevasTareas);
-  };
-
   return (
-    <div className='App'>
-      <Header />
-      <form className='F1'>
-        <input className='primerimput' 
-          type='text'
-          maxlength="25"
-          value={nuevaTarea}
-          onChange={handleChange}
-          placeholder='Ingrese tarea'
-        />
-        <button className='primerboton' type='submit' onClick={agregar}>
-          Agregar Tarea
-        </button>
-      </form>
-      <TaskList
-        pendientes={listaTareas}
-        onEliminar={eliminarTarea}
-        onEditar={editarTarea}
-      />
-    </div>
+    <BrowserRouter>
+      <div className='App'>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/completed-tasks" element={<CompletedTasks />} />
+        </Routes>
+      </div> 
+    </BrowserRouter>
+    
   );
 }
 
