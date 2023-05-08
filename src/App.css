@@ -9,12 +9,14 @@ body {
     display: flex;
     flex-direction: column;
     background: linear-gradient(rgb(79, 241, 130), rgb(113, 224, 232));
-    max-width: 400px;
+    max-width: 430px;
     align-items: center;
     margin: auto;
     margin-top: 150px;
     border: none;
-    min-height: 600px;
+    height: 600px;
+    max-height: 600px;
+    overflow-y: auto;
     border-radius: 5px;
     border: white solid ;
     box-shadow: 0px 0px 25px #222;
