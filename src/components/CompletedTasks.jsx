@@ -1,5 +1,13 @@
+import { Box } from "@chakra-ui/react"
+
 export const CompletedTasks = () => {
     return (
-        <h2>Tareas completadas</h2>
+        <Box
+            color='white'
+            fontSize='xxx-large'
+            
+        >
+            <h2>PROXIMAMENTE</h2>
+        </Box>
     )
 }

@@ -1,12 +1,12 @@
 import { useState } from "react";
-import "./Task.css";
+import { Box, Checkbox, Input, Button } from "@chakra-ui/react";
 
 export const Task = (props) => {
   const { id, descripcion, completado, onEliminar, onEditar } = props;
 
-  const [modoEdicion, setModoEdicion] = useState(false); // agregar un estado para la edicion
+  const [modoEdicion, setModoEdicion] = useState(false);
   const [nuevaDescripcion, setNuevaDescripcion] = useState(descripcion);
-  const [estaCompletado, setEstaCompletado] = useState(completado); // agregar un estado para el control de completado
+  const [estaCompletado, setEstaCompletado] = useState(completado);
 
   const handleEliminar = () => {
     onEliminar(id);
@@ -26,27 +26,123 @@ export const Task = (props) => {
   };
 
   const handleCompletado = () => {
-    setEstaCompletado(!estaCompletado); // cambiar el estado de completado al valor opuesto
-    if (!estaCompletado) { // si la tarea se ha completado, llamar a la función onEliminar
+    setEstaCompletado(!estaCompletado);
+    if (!estaCompletado) {
       onEliminar(id);
     }
   };
 
   return (
-    <li>
-      <input className="check1" id={id} type="checkbox" checked={estaCompletado} onChange={handleCompletado} /> {/* establecer el valor del checkbox al estado de completado */}
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="space-between"
+      backgroundColor="deepskyblue"
+      width="95%"
+      margin=".5rem"
+      padding="8px"
+      color="white"
+      borderRadius="1rem"
+      fontFamily="'Arial Narrow Bold', sans-serif"
+      marginTop='1rem'
+    >
+      <Checkbox
+        size="sm"
+        isChecked={estaCompletado}
+        onChange={handleCompletado}
+        m='10px'
+      />
       {modoEdicion ? (
-        <input
+        <Input
           type="text"
           value={nuevaDescripcion}
           onChange={handleChange}
+          width="190px"
         />
       ) : (
-        <label className="espacioTarea" htmlFor={id}>{descripcion}</label>
+        <Box
+          className="espacioTarea"
+          width="200px"
+          marginRight="7px"
+        >
+          {descripcion}
+        </Box>
       )}
-      <br />
-      <button className="buttonEdit" onClick={handleEditar}>{modoEdicion ? "Guardar" : "Editar"}</button>
-      <button className="buttonDelete" onClick={handleEliminar}>Eliminar</button>
-    </li>
+      <Button
+        size="sm"
+        onClick={handleEditar}
+        minW="80px"
+        h="40px"
+        color="#fff"
+        p="5px 10px"
+        marginRight='5px'
+        fontWeight="bold"
+        cursor="pointer"
+        transition="all 0.3s ease"
+        position="relative"
+        display="inline-block"
+        outline="none"
+        borderRadius="20px"
+        border="none"
+        boxShadow="inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1)"
+        bg="#57cc99"
+        zIndex="1"
+        _hover={{ _after: { width: '100%', left: '0' } }}
+        _after={{
+        borderRadius: '20px',
+        position: 'absolute',
+        content: '""',
+        width: '0',
+        height: '100%',
+        top: '0',
+        zIndex: '-1',
+        boxShadow:
+            'inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1)',
+        transition: 'all 0.3s ease',
+        backgroundColor: '#80ed99',
+        right: '0',
+        }}
+        _active={{ top: '2px' }}
+      >
+        {modoEdicion ? "Guardar" : "Editar"}
+      </Button>
+      <Button
+        size="sm"
+        onClick={handleEliminar}
+        minW="80px"
+        h="40px"
+        color="#fff"
+        p="5px 10px"
+        fontWeight="bold"
+        cursor="pointer"
+        transition="all 0.3s ease"
+        position="relative"
+        display="inline-block"
+        outline="none"
+        borderRadius="20px"
+        border="none"
+        boxShadow="inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1)"
+        bg="#57cc99"
+        zIndex="1"
+        _hover={{ _after: { width: '100%', left: '0' } }}
+        _after={{
+        borderRadius: '20px',
+        position: 'absolute',
+        content: '""',
+        width: '0',
+        height: '100%',
+        top: '0',
+        zIndex: '-1',
+        boxShadow:
+            'inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1)',
+        transition: 'all 0.3s ease',
+        backgroundColor: '#80ed99',
+        right: '0',
+        }}
+        _active={{ top: '2px' }}
+      >
+        Eliminar
+      </Button>
+    </Box>
   );
 };
