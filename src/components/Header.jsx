@@ -1,7 +1,7 @@
 //import "./Header.css";
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import { Box, Heading, Button, Flex } from '@chakra-ui/react';
+import { useColorMode, Box, Heading, Button, Flex } from '@chakra-ui/react';
 import bgImage from '../assets/Cielo.jpg'
 
 export const Header = () =>{
@@ -16,6 +16,8 @@ export const Header = () =>{
         // Limpia el intervalo cuando el componente se desmonta
         return () => clearInterval(intervalID);
     }, []);
+
+    const { colorMode, toggleColorMode } = useColorMode();
 
     return ( 
     <Heading>
@@ -35,7 +37,7 @@ export const Header = () =>{
                 direction='column'
                 alignItems='center'
                 w='96%'
-                color='white'
+                color='gray.500'
                 fontFamily='sans-serif'
             >
                 <h1> <a href="/">Lista de Tareas</a></h1>
@@ -152,6 +154,11 @@ export const Header = () =>{
                     >
                     <Link to="/contact">Contacto</Link>
                 </Button>
+                <header>
+                    <Button onClick={toggleColorMode}>
+                        {colorMode === 'light' ? 'Modo Noche' : 'Modo Día'}
+                    </Button>
+                </header>
             </Box>
         </Flex>
     </Heading>

@@ -1,6 +1,7 @@
 import { Button, Flex } from "@chakra-ui/react";
 import { TaskList } from "./TaskList";
 import { useState, useEffect } from 'react';
+import { ChakraProvider, ColorModeScript, extendTheme } from '@chakra-ui/react';
 
 const tareasPendiente = [
     { id: 1, descripcion: 'Recoger carro', completado: false },
@@ -15,109 +16,121 @@ export const Home = () => {
       );
       const [nuevaTarea, setNuevaTarea] = useState('');
     
-      useEffect(() => {
-        localStorage.setItem('listaTareas', JSON.stringify(listaTareas));
-      }, [listaTareas]);
+    useEffect(() => {
+      localStorage.setItem('listaTareas', JSON.stringify(listaTareas));
+    }, [listaTareas]);
     
-      const agregar = evento => {
-        evento.preventDefault();
-        if (nuevaTarea.trim() !== '') {
-          const nuevaTareaConId = {
-            id: new Date().getTime(),
-            descripcion: nuevaTarea,
-            completado: false,
-          };
-          setListaTareas([...listaTareas, nuevaTareaConId]);
-          setNuevaTarea('');
+    const agregar = evento => {
+      evento.preventDefault();
+      if (nuevaTarea.trim() !== '') {
+        const nuevaTareaConId = {
+          id: new Date().getTime(),
+          descripcion: nuevaTarea,
+          completado: false,
+        };
+        setListaTareas([...listaTareas, nuevaTareaConId]);
+        setNuevaTarea('');
+      }
+    };
+    
+    const handleChange = evento => {
+      setNuevaTarea(evento.target.value);
+    };
+  
+    const eliminarTarea = id => {
+      const nuevasTareas = listaTareas.filter(tarea => tarea.id !== id);
+      setListaTareas(nuevasTareas);
+    };
+    
+    const editarTarea = (id, nuevaDescripcion) => {
+      const nuevasTareas = listaTareas.map(tarea => {
+        if (tarea.id === id) {
+          tarea.descripcion = nuevaDescripcion;
         }
-      };
+        return tarea;
+      });
+      setListaTareas(nuevasTareas);
+    };
     
-      const handleChange = evento => {
-        setNuevaTarea(evento.target.value);
-      };
-    
-      const eliminarTarea = id => {
-        const nuevasTareas = listaTareas.filter(tarea => tarea.id !== id);
-        setListaTareas(nuevasTareas);
-      };
-    
-      const editarTarea = (id, nuevaDescripcion) => {
-        const nuevasTareas = listaTareas.map(tarea => {
-          if (tarea.id === id) {
-            tarea.descripcion = nuevaDescripcion;
-          }
-          return tarea;
-        });
-        setListaTareas(nuevasTareas);
-      };
+    const theme = extendTheme({
+      colors: {
+        brand: {
+          900: '#1a202c', // Color principal en el modo noche
+          // Agrega otros colores según tus necesidades
+        },
+      },
+    });
 
     return (
-    <Flex
-      direction='column'
-    >
+    <ChakraProvider theme={theme}>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Flex
-          direction='row'
-          justify='space-around'
-          alignContent='space-around'          w='99%'
-          borderRadius='10px'
-          bg='deepskyblue'
-          boxShadow='0px 0px 10px #222;'
-          backdropFilter='blur(10px)'
-          p='13px'
+        direction='column'
       >
-        <form className='F1'>
-          <input className='primerimput' 
-            type='text'
-            maxLength="25"
-            value={nuevaTarea}
-            onChange={handleChange}
-            placeholder='Ingrese tarea'
-          />
-          <Button className='primerboton' type='submit' onClick={agregar}
-            marginLeft='20px'
-            minW="130px"
-            h="40px"
-            color="#fff"
-            p="5px 10px"
-            fontWeight="bold"
-            cursor="pointer"
-            transition="all 0.3s ease"
-            position="relative"
-            display="inline-block"
-            outline="none"
-            borderRadius="20px"
-            border="none"
-            boxShadow="inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1)"
-            bg="#57cc99"
-            zIndex="1"
-            _hover={{ _after: { width: '100%', left: '0' } }}
-            _after={{
-            borderRadius: '20px',
-            position: 'absolute',
-            content: '""',
-            width: '0',
-            height: '100%',
-            top: '0',
-            zIndex: '-1',
-            boxShadow:
-                'inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1)',
-            transition: 'all 0.3s ease',
-            backgroundColor: '#80ed99',
-            right: '0',
-            }}
-            _active={{ top: '2px' }}
-          >
-            Agregar Tarea
-          </Button>
-        </form>
+        <Flex
+            direction='row'
+            justify='space-around'
+            alignContent='space-around'          w='99%'
+            borderRadius='10px'
+            bg='deepskyblue'
+            boxShadow='0px 0px 10px #222;'
+            backdropFilter='blur(10px)'
+            p='13px'
+        >
+          <form className='F1'>
+            <input className='primerimput' 
+              type='text'
+              maxLength="25"
+              value={nuevaTarea}
+              onChange={handleChange}
+              placeholder='Ingrese tarea'
+            />
+            <Button className='primerboton' type='submit' onClick={agregar}
+              marginLeft='20px'
+              minW="130px"
+              h="40px"
+              color="#fff"
+              p="5px 10px"
+              fontWeight="bold"
+              cursor="pointer"
+              transition="all 0.3s ease"
+              position="relative"
+              display="inline-block"
+              outline="none"
+              borderRadius="20px"
+              border="none"
+              boxShadow="inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1)"
+              bg="#57cc99"
+              zIndex="1"
+              _hover={{ _after: { width: '100%', left: '0' } }}
+              _after={{
+              borderRadius: '20px',
+              position: 'absolute',
+              content: '""',
+              width: '0',
+              height: '100%',
+              top: '0',
+              zIndex: '-1',
+              boxShadow:
+                  'inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1)',
+              transition: 'all 0.3s ease',
+              backgroundColor: '#80ed99',
+              right: '0',
+              }}
+              _active={{ top: '2px' }}
+            >
+              Agregar Tarea
+            </Button>
+          </form>
+        </Flex>
+        <br />
+        <hr />
+        <TaskList
+          pendientes={listaTareas}
+          onEliminar={eliminarTarea}
+          onEditar={editarTarea}
+        />
       </Flex>
-      <br />
-      <hr />
-      <TaskList
-        pendientes={listaTareas}
-        onEliminar={eliminarTarea}
-        onEditar={editarTarea}
-      />
-    </Flex>
+    </ChakraProvider>
     )
 }

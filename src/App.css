@@ -1,7 +1,7 @@
 .App {
     display: flex;
     flex-direction: column;
-    background: linear-gradient(rgb(79, 241, 130), rgb(113, 224, 232));
+    background: linear-gradient(rgb(113, 224, 232), rgb(253, 253, 253));
     max-width: 480px;
     align-items: center;
     margin: auto;
